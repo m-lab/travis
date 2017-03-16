@@ -1,6 +1,23 @@
 # travis
 A support library for adding deployment automation in travis.
 
+# Creating accounts
+
+From the top level repo (that contains travis as a submodule):
+
+```
+mkdir keys
+./travis/create_service_account.sh \
+    mlab-sandbox cloud-storage-deployer keys/mlab-sandbox.json
+./travis/create_service_account.sh \
+    mlab-staging cloud-storage-deployer keys/mlab-staging.json
+tar --exclude=*.tar* -C keys -cvf keys/service-accounts.tar .
+
+cp ./travis/template-travis.yml .travis.yml
+travis encrypt-file keys/service-accounts.tar --add
+```
+
+Update the .travis.yml template to match your repository and deployment needs.
 
 ## Encrypting files for travis
 
