@@ -24,12 +24,16 @@ steps that have to be taken to restore functionality.
  4. Tar the SA keys:
     tar cf service-accounts.tar legacy-rpm-writer.mlab*
  5. Encrypt the tar file:
-    `travis encrypt-file -f -p service-accounts.tar --repo m-lab/<repo-name>`
+    ```
+    travis encrypt-file -f -p service-accounts.tar --repo m-lab/<repo-name>
+    ```
     Optionally, if you want to provide the keys for some other repos,
     copy the key and iv values into a command like:
+    ```
     travis encrypt-file -f -p service-accounts.tar --key \
       AAA151324478927bbbbbbbbbcccccccccccccdddddddddd53223551235324324 \
       --iv 632451671306d1842843a792250ce707 --repo gfr10598/ndt-support
+    ```
  6. Copy the keys printed when you encrypted the tar file,
     and paste them in place of the three occurances in the script
     commands below.
