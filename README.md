@@ -16,11 +16,11 @@ steps that have to be taken to restore functionality.
  2. Create new service accounts or new keys for existing account, for
     mlab-sandbox and mlab-staging, downloading the json key files.
  3. Update GCS ACLs, e.g.
-```
+    ```
     gsutil acl ch -R -u \
        legacy-rpm-writer@mlab-sandbox.iam.gserviceaccount.com:WRITE \
        gs://legacy-rpms-mlab-sandbox
-```
+    ```
  4. Tar the SA keys:
     tar cf service-accounts.tar legacy-rpm-writer.mlab*
  5. Encrypt the tar file:
