@@ -22,6 +22,6 @@ gcloud auth activate-service-account --key-file "${KEYFILE}"
 # from a privileged account using:
 #   gsutil acl ch -u SERVICE_ACCT_NAME@PROJECT.iam.gserviceaccount.com:WRITE \
 #      gs://BUCKET
-gsutil cp $SOURCE "gs://${GSPATH}/"
+gsutil cp $SOURCE "${GSPATH}"
 
 exit 0
