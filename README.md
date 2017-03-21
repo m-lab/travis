@@ -38,7 +38,7 @@ steps that have to be taken to restore functionality.
     mlab-sandbox and mlab-staging, downloading the json key files.
  3. Update GCS ACLs, e.g.
     ```
-    gsutil acl ch -R -u \
+    gsutil acl ch -u \
        legacy-rpm-writer@mlab-sandbox.iam.gserviceaccount.com:WRITE \
        gs://legacy-rpms-mlab-sandbox
     ```
