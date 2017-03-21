@@ -11,7 +11,11 @@ mkdir keys
     mlab-sandbox cloud-storage-deployer keys/mlab-sandbox.json
 ./travis/create_service_account_and_key.sh \
     mlab-staging cloud-storage-deployer keys/mlab-staging.json
-tar --exclude=*.tar* -C keys -cvf keys/service-accounts.tar .
+
+# NB: do not include "." in the resulting tar file.
+pushd keys
+  tar --exclude=*.tar* -cvf service-accounts.tar *.json
+popd
 
 cp ./travis/template-travis.yml .travis.yml
 travis encrypt-file keys/service-accounts.tar --add
