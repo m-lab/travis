@@ -7,9 +7,9 @@ From the top level repo (that contains travis as a submodule):
 
 ```
 mkdir keys
-./travis/create_service_account.sh \
+./travis/create_service_account_and_key.sh \
     mlab-sandbox cloud-storage-deployer keys/mlab-sandbox.json
-./travis/create_service_account.sh \
+./travis/create_service_account_and_key.sh \
     mlab-staging cloud-storage-deployer keys/mlab-staging.json
 tar --exclude=*.tar* -C keys -cvf keys/service-accounts.tar .
 
