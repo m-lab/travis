@@ -28,7 +28,7 @@ pushd "${BASEDIR}"
   # Automatically promote the new version to "serving".
   # For all options see:
   # https://cloud.google.com/sdk/gcloud/reference/app/deploy
-  gcloud app deploy --promote app.yaml
+  gcloud ${BETA} app deploy --promote app.yaml
 popd
 
 exit 0
