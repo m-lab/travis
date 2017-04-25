@@ -8,6 +8,7 @@ set -e
 PROJECT=${1:?Please provide the GCP project id}
 KEYFILE=${2:?Please provide the service account key file}
 BASEDIR=${3:?Please provide the base directory containing app.yaml}
+APPYAML=${4:-app.yaml}
 
 # Add gcloud to PATH.
 source "${HOME}/google-cloud-sdk/path.bash.inc"
@@ -28,7 +29,7 @@ pushd "${BASEDIR}"
   # Automatically promote the new version to "serving".
   # For all options see:
   # https://cloud.google.com/sdk/gcloud/reference/app/deploy
-  gcloud ${BETA} app deploy --promote app.yaml
+  gcloud ${BETA} app deploy --promote ${APPYAML}
 popd
 
 exit 0
