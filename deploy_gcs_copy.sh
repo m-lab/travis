@@ -8,6 +8,7 @@ USAGE="$0 <key-file> <source> <dest>"
 KEYFILE=${1:?Please provide the service account key file: $USAGE}
 SOURCE=${2:?Please provide source pattern: $USAGE}
 GSPATH=${3:?Please provide GCS destination - gs://path: $USAGE}
+GSUTIL_CP_FLAGS=${4}
 
 # Add gcloud to PATH.
 source "${HOME}/google-cloud-sdk/path.bash.inc"
@@ -22,6 +23,6 @@ gcloud auth activate-service-account --key-file "${KEYFILE}"
 # from a privileged account using:
 #   gsutil acl ch -u SERVICE_ACCT_NAME@PROJECT.iam.gserviceaccount.com:WRITE \
 #      gs://BUCKET
-gsutil cp $SOURCE "${GSPATH}"
+gsutil cp ${GSUTIL_CP_FLAGS} ${SOURCE} "${GSPATH}"
 
 exit 0

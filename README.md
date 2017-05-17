@@ -1,6 +1,16 @@
 # travis
 A support library for adding deployment automation in travis.
 
+# Add submodule to a new repository
+
+So travis can automatically checkout the travis submodule, use the `https`
+address. Think of this as a read-only link to the travis repo.
+
+From the root directory of the repo you're adding to travis:
+```
+git submodule add https://github.com/m-lab/travis.git
+```
+
 # Creating accounts
 
 From the top level repo (that contains travis as a submodule):
