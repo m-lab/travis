@@ -12,6 +12,8 @@
 set -e
 set -x
 
+source "${HOME}/google-cloud-sdk/path.bash.inc"
+
 USAGE="$0 <image tag> <gcr.io url> <cloud project> <custer name> <cluster zone> [<KEY> <VALUE>]*"
 IMAGE_TAG=${1:?Please provide a tag for the image: $USAGE}
 GCR_REPO=${2:?Please provide a gcr.io url to upload to: $USAGE}
