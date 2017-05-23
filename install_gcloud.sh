@@ -1,6 +1,8 @@
 #!/bin/bash
 #
 # Installs the Google Cloud SDK.
+#
+# args: any extra components to install
 
 set -e
 set -x
@@ -13,6 +15,13 @@ if [[ ! -d "${HOME}/google-cloud-sdk/bin" ]]; then
 
 fi
 
-# Verify installation succeeded.
 source "${HOME}/google-cloud-sdk/path.bash.inc"
+
+# Install components
+gcloud config set core/disable_prompts true
+for COMPONENT in $*; do
+  gcloud components install ${COMPONENT}
+done
+
+# Verify installation succeeded.
 gcloud version
