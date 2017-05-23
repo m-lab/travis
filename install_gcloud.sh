@@ -19,7 +19,7 @@ source "${HOME}/google-cloud-sdk/path.bash.inc"
 
 # Install components
 gcloud config set core/disable_prompts true
-for COMPONENT in $*; do
+for COMPONENT in "$@"; do
   gcloud components install ${COMPONENT}
 done
 
