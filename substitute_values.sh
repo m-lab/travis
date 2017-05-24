@@ -3,7 +3,10 @@
 # Replaces values in a container config.
 
 set -e
-set -x
+# No set -x in order to prevent spamming build logs. When there are thousands of
+# deployments, setting -x causes tens of thousands of loglines to appear, and
+# Travis has a hardcoded upper limit of 10000 before their nice log viewer just
+# gives up.
 
 source "${HOME}/google-cloud-sdk/path.bash.inc"
 
