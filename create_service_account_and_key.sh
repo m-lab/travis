@@ -38,7 +38,9 @@ function service_account_exists () {
 function main () {
   sanity_check_or_die
 
-  local name=$( basename `git rev-parse --show-toplevel` )-travis-deploy
+  local basename=$( basename `git rev-parse --show-toplevel` )
+  # Service account names can have no more than 30 characters.
+  local name=${basename:0:16}-travis-deploy
   local account="${name}@${PROJECT}.iam.gserviceaccount.com"
   local iam_url="${IAM_CONSOLE}?project=${PROJECT}"
 
