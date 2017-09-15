@@ -26,7 +26,9 @@ function deployment_substitution() {
 
   for f in ${DIRECTORY}/*
   do
-    sed --expression="s#${KEY}#${VALUE}#" --in-place $f
+    newf=$(mktemp)
+    sed -e "s#${KEY}#${VALUE}#"  < "${f}" > "${newf}"
+    mv -f "${newf}" "${f}"
   done
 }
 
