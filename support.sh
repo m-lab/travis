@@ -21,4 +21,17 @@ function sanity_check_or_die () {
   fi
 }
 
+function assert_travis_install_or_die() {
+  if ! type -p travis > /dev/null ; then
+    echo 'travis not found in PATH. Is the travis CLI installed?'
+    echo 'https://github.com/travis-ci/travis.rb#installation'
+    exit 1
+  fi
+}
 
+function assert_travis_login_or_die() {
+  if ! travis whoami > /dev/null ; then
+    echo 'Please login to travis: travis login --auto'
+    exit 1
+  fi
+}
