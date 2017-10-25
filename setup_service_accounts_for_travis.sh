@@ -52,11 +52,12 @@ function service_account_exists () {
   else
     return 1
   fi
-
 }
 
 # download_service_account_keys downloads new service account credentials. Any
-# existing keys are unaffected.
+# existing keys are unaffected. However, note that service accounts can have no
+# more than 10 keys at once and once that limit is reached creating new keys
+# will fail.
 #
 # Args:
 #   project: the project name, e.g. mlab-sandbox
@@ -129,7 +130,6 @@ function setup_service_account() {
   echo "    ${iam_url}"
   echo ""
   google-chrome "${iam_url}" &> /dev/null || :
-
 }
 
 # setup_project checks the travis environment, and if the service account
@@ -145,6 +145,8 @@ function setup_project() {
   # Do not overwrite the service account env variable if it already exists.
   if travis env list --no-interactive \
       | grep -q SERVICE_ACCOUNT_${project/-/_} ; then
+    echo -n "Confirmed: SERVICE_ACCOUNT_${project/-/_} already exists."
+    echo " Taking no action."
     return
   fi
 
