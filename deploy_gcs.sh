@@ -9,7 +9,6 @@
 #       gs://example-mlab-sandbox/files/
 
 set -e
-set -x
 set -u
 
 USAGE="Usage: $0 <key> <src> <dest>"
