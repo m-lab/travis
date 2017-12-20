@@ -3,11 +3,21 @@
 # deploy_gcs supports deploying build artifacts to GCS buckets using base64
 # encoded service account keys, such as those stored in travis-ci environments.
 #
-# Example:
+# Examples:
+#   # Copies all files matching pattern to the named folder, preserving names.
 #   deploy_gcs.sh "$SERVICE_ACCOUNT_mlab_sandbox" \
 #       build/*.rpm \
 #       gs://example-mlab-sandbox/files/
-
+#
+#   # Copies specific file to a folder, preserving the name.
+#   deploy_gcs.sh "$SERVICE_ACCOUNT_mlab_sandbox" \
+#       build/foobar.rpm \
+#       gs://example-mlab-sandbox/files/
+#
+#   # Copies specific file and renames it in GCS.
+#   deploy_gcs.sh "$SERVICE_ACCOUNT_mlab_sandbox" \
+#       build/foobar.rpm \
+#       gs://example-mlab-sandbox/files/foobar-newname.rpm
 set -e
 set -u
 
