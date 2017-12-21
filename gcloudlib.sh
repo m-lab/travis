@@ -10,12 +10,14 @@
 #   https://cloud.google.com/sdk/gcloud/reference/auth/activate-service-account
 #
 # Args:
-#   key: base64 encoded service account key.
+#   keyname: name of environment variable that contains a service account key.
 function activate_service_account() {
-    local key=$1
+    local keyname=$1
     local keyfile=$( mktemp )
 
-    echo $key | base64 --decode > ${keyfile}
+    # Unconditionally disable command echo to protect the key. Run in a subshell
+    # to localize the effect of set +x.
+    ( set +x; echo "${!keyname}" > ${keyfile} )
     gcloud auth activate-service-account --key-file ${keyfile}
     rm -f ${keyfile}
 }
