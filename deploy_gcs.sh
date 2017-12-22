@@ -29,10 +29,6 @@ if [[ $# -lt 2 ]] ; then
     echo $USAGE
     exit 1
 fi
-# Take all parameters except the last as the sources.
-SRCS=${@:1:$(( $# - 1 ))}
-# Take the last parameter as the destination.
-DEST=${@:$#}
 
 # Import support functions from the bash gcloud library.
 source "${HOME}/google-cloud-sdk/path.bash.inc"
@@ -42,4 +38,4 @@ source $( dirname "${BASH_SOURCE[0]}" )/gcloudlib.sh
 activate_service_account "${KEYNAME}"
 
 # Copy recursively to GCS with caching disabled.
-copy_nocache "${SRCS}" ${DEST}
+copy_nocache $@
