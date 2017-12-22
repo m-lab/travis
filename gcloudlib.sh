@@ -27,11 +27,9 @@ function activate_service_account() {
 # Uploaded objects will have metadata set to disable caching.
 #
 # Args:
-#  src: a source specification of a source file, dir, or pattern.
-#  dest: a destination specification, including GCS bucket and optional path.
+#  copyfiles: the source and dest files, dirs, or patterns.
 function copy_nocache() {
-    local src=$1
-    local dest=$2
+    local copyfiles=$@
     local cache_control="Cache-Control:private, max-age=0, no-transform"
-    gsutil -h "$cache_control" cp -r ${src} ${dest}
+    gsutil -h "$cache_control" cp -r $copyfiles
 }

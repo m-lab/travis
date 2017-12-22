@@ -23,8 +23,12 @@ set -u
 
 USAGE="Usage: $0 <keyname> <src> <dest>"
 KEYNAME=${1:?Please provide the service account keyname: $USAGE}
-SRC=${2:?Please provide a source file, dir, or pattern: $USAGE}
-DEST=${3:?Please provide a destination bucket with optional path: $USAGE}
+shift
+# Ensure there are at least two additional parameters.
+if [[ $# -lt 2 ]] ; then
+    echo $USAGE
+    exit 1
+fi
 
 # Import support functions from the bash gcloud library.
 source "${HOME}/google-cloud-sdk/path.bash.inc"
@@ -34,4 +38,4 @@ source $( dirname "${BASH_SOURCE[0]}" )/gcloudlib.sh
 activate_service_account "${KEYNAME}"
 
 # Copy recursively to GCS with caching disabled.
-copy_nocache ${SRC} ${DEST}
+copy_nocache $@
