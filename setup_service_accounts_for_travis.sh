@@ -158,13 +158,13 @@ function setup_project() {
   local output=$( mktemp /tmp/service-account-json.XXXXXXXX )
   download_service_account_keys "${project}" "${account}" "${output}"
 
-  # Base64 encode the credential file and set a travis environment variable.
-  local encoded_key="$( base64 --wrap 0 ${output} )"
+  # The contents of the credential file.
+  local key="$( cat ${output} )"
   rm -f ${output}
 
   # Create the new environment variable.
   echo "Setting SERVICE_ACCOUNT_${project/-/_}"
-  travis env set --no-interactive SERVICE_ACCOUNT_${project/-/_} "${encoded_key}"
+  travis env set --no-interactive SERVICE_ACCOUNT_${project/-/_} "${key}"
 }
 
 
