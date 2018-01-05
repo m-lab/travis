@@ -26,6 +26,10 @@ gcloud config set core/verbosity debug
 
 # Make build artifacts available to docker build.
 pushd "${BASEDIR}"
+  # Substitute useful travis env variables into appengine env variables.
+  yaml_text=`cat $APPYAML`
+  echo $yaml_text | sed "s/__COMMIT_HASH__/$TRAVIS_COMMIT/" | sed "s/__RELEASE_TAG__/$TRAVIS_TAG/" > $APPYAML
+
   # Automatically promote the new version to "serving".
   # For all options see:
   # https://cloud.google.com/sdk/gcloud/reference/app/deploy
