@@ -30,8 +30,8 @@ gcloud config set core/verbosity debug
 pushd "${BASEDIR}"
   # Substitute useful travis env variables into appengine env variables.
   yaml=`cat $APPYAML`
-  yaml=`echo "$yaml" | COMMIT_HASH=$TRAVIS_COMMIT envsubst '$COMMIT_HASH'`
-  yaml=`echo "$yaml" | RELEASE_TAG=$TRAVIS_TAG envsubst '$RELEASE_TAG'`
+  yaml=`echo "$yaml" | envsubst '$TRAVIS_TAG'`
+  yaml=`echo "$yaml" | envsubst '$TRAVIS_COMMIT'`
   echo "$yaml" > $APPYAML
 
   # Automatically promote the new version to "serving".
