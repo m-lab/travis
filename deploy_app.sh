@@ -9,6 +9,8 @@ PROJECT=${1:?Please provide the GCP project id}
 KEYFILE=${2:?Please provide the service account key file}
 BASEDIR=${3:?Please provide the base directory containing app.yaml}
 APPYAML=${4:-app.yaml}
+TRAVIS_COMMIT=${TRAVIS_COMMIT:-unknown}
+TRAVIS_TAG=${TRAVIS_TAG:-empty_tag}
 
 # Add gcloud to PATH.
 source "${HOME}/google-cloud-sdk/path.bash.inc"
@@ -26,6 +28,10 @@ gcloud config set core/verbosity debug
 
 # Make build artifacts available to docker build.
 pushd "${BASEDIR}"
+  # Substitute useful travis env variables into appengine env variables.
+  yaml=`cat $APPYAML`
+  `echo "$yaml" | envsubst '$TRAVIS_TAG, $TRAVIS_COMMIT'` > $APPYAML
+
   # Automatically promote the new version to "serving".
   # For all options see:
   # https://cloud.google.com/sdk/gcloud/reference/app/deploy
