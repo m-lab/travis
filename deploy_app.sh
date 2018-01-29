@@ -29,8 +29,9 @@ gcloud config set core/verbosity debug
 # Make build artifacts available to docker build.
 pushd "${BASEDIR}"
   # Substitute useful travis env variables into appengine env variables.
+  # Each deployment may use only a subset of these, which is fine.
   yaml=`cat $APPYAML`
-  echo "$yaml" | envsubst '$TRAVIS_TAG, $TRAVIS_COMMIT, $INJECTED_PROJECT, $INJECTED_BUCKET' > $APPYAML
+  echo "$yaml" | envsubst '$TRAVIS_TAG, $TRAVIS_COMMIT, $INJECTED_BUCKET, $INJECTED_PROJECT, $INJECTED_DATASET' > $APPYAML
 
   # Automatically promote the new version to "serving".
   # For all options see:
