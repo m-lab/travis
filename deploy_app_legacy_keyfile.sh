@@ -6,7 +6,7 @@ set -x
 set -e
 
 PROJECT=${1:?Please provide the GCP project id}
-KEYNAME=${2:?Please provide the service account keyname}
+KEYFILE=${2:?Please provide the service account key file}
 BASEDIR=${3:?Please provide the base directory containing app.yaml}
 APPYAML=${4:-app.yaml}
 TRAVIS_COMMIT=${TRAVIS_COMMIT:-unknown}
@@ -14,10 +14,11 @@ TRAVIS_TAG=${TRAVIS_TAG:-empty_tag}
 
 # Add gcloud to PATH.
 source "${HOME}/google-cloud-sdk/path.bash.inc"
-source $( dirname "${BASH_SOURCE[0]}" )/gcloudlib.sh
 
-# Authenticate all operations using the given service account.
-activate_service_account "${KEYNAME}"
+# All operations are performed as the service account named in KEYFILE.
+# For all options see:
+# https://cloud.google.com/sdk/gcloud/reference/auth/activate-service-account
+gcloud auth activate-service-account --key-file "${KEYFILE}"
 
 # For all options see:
 # https://cloud.google.com/sdk/gcloud/reference/config/set
