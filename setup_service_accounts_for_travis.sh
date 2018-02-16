@@ -144,7 +144,7 @@ function setup_project() {
 
   # Do not overwrite the service account env variable if it already exists.
   if travis env list --no-interactive \
-      | grep -q SERVICE_ACCOUNT_${project/-/_} ; then
+      | grep -q ^SERVICE_ACCOUNT_${project/-/_} ; then
     echo -n "Confirmed: SERVICE_ACCOUNT_${project/-/_} already exists."
     echo " Taking no action."
     return
@@ -174,7 +174,7 @@ function main () {
   assert_travis_login_or_die
 
   # For every project.
-  for project in mlab-sandbox mlab-staging mlab-oti ; do
+  for project in mlab-testing mlab-sandbox mlab-staging mlab-oti ; do
     setup_project $project
   done
 
