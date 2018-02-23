@@ -13,17 +13,13 @@ shift 2
 
 # Add gcloud to PATH.
 source "${HOME}/google-cloud-sdk/path.bash.inc"
+source $( dirname "${BASH_SOURCE[0]}" )/gcloudlib.sh
 
-KEYFILE="/tmp/${PROJECT}.json"
-if [[ ! -f "${KEYFILE}" ]] ; then
-  echo "ERROR: service account key file for $PROJECT not found!"
-  exit 1
-fi
-
-# All operations are performed as the service account named in KEYFILE.
-# For all options see:
-# https://cloud.google.com/sdk/gcloud/reference/auth/activate-service-account
-gcloud auth activate-service-account --key-file "${KEYFILE}"
+# Note: service account environment variables should be defined by
+# setup_service_accounts_for_travis.sh.
+KEYNAME="SERVICE_ACCOUNT_${PROJECT/-/_}"
+# Authenticate all operations using the given service account.
+activate_service_account "${KEYNAME}"
 
 # For all options see:
 # https://cloud.google.com/sdk/gcloud/reference/config/set
@@ -34,15 +30,16 @@ gcloud config set core/verbosity debug
 # Identify the cluster ZONE.
 ZONE=$( gcloud container clusters list \
   --format='table[no-heading](locations[0])' \
-  --filter "name='$CLUSTER'" )
+  --filter "name='${CLUSTER}'" )
 
-if [[ -z "$ZONE" ]] ; then
-  echo "ERROR: could not find zone for $CLUSTER"
+if [[ -z "${ZONE}" ]] ; then
+  echo "ERROR: could not find zone for ${CLUSTER}"
+  echo "ERROR: does cluster exist?"
   exit 1
 fi
 
-# Get credentials from the cluster.
-gcloud container clusters get-credentials $CLUSTER --zone $ZONE
+# Get credentials for accessing the k8s cluster.
+gcloud container clusters get-credentials ${CLUSTER} --zone ${ZONE}
 
 # Make the project and cluster available to sub-commands.
 export ZONE
