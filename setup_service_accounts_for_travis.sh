@@ -6,7 +6,7 @@
 # available for travis `deploy` scripts.
 #
 # By default, setup_service_accounts_for_travis.sh creates service accounts in
-# the standard four projects: mlab-sandbox, mlab-staging, and mlab-oti. If you
+# the standard three projects: mlab-sandbox, mlab-staging, and mlab-oti. If you
 # wish to additionally create a service account in the mlab-testing project,
 # pass a single parameter, 'mlab-testing'.
 #
