@@ -5,6 +5,11 @@
 # variables to contain the encoded service account credentials so they are
 # available for travis `deploy` scripts.
 #
+# By default, setup_service_accounts_for_travis.sh creates service accounts in
+# the standard three projects: mlab-sandbox, mlab-staging, and mlab-oti. If you
+# wish to additionally create a service account in the mlab-testing project,
+# pass a single parameter, 'mlab-testing'.
+#
 # In order to perform GCP operations from travis, we must have service account
 # credentials available to travis. This script will create service account
 # credentials for all three M-Lab projects with a name derived from the git
@@ -29,6 +34,10 @@ set -e
 
 BASEDIR="$(dirname "$0")"
 source "${BASEDIR}/support.sh"
+
+# If an argument is given, interpret it as requesting mlab-testing keys also.
+ADD_TESTING_KEYS=${1:+mlab-testing}
+
 
 USAGE="$0"
 IAM_CONSOLE=https://console.cloud.google.com/iam-admin/iam/project
@@ -174,7 +183,7 @@ function main () {
   assert_travis_login_or_die
 
   # For every project.
-  for project in mlab-testing mlab-sandbox mlab-staging mlab-oti ; do
+  for project in ${ADD_TESTING_KEYS} mlab-sandbox mlab-staging mlab-oti ; do
     setup_project $project
   done
 
