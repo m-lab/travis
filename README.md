@@ -37,3 +37,20 @@ additional parameter:
 ```
 ./travis/setup_service_accounts_for_travis.sh mlab-testing
 ```
+
+# Updating Service Account Roles
+
+By default, the new service accounts have the fewest permissions possible. To
+perform some deployment task, you will need to assign the appropriate role,
+which pre-defines the necessary permissions for common deployment types, e.g.
+appengine-flexible-deployer, cloud-kubernetes-deployer, etc.
+
+In the GCP Console:
+
+ * GCP Console -> IAM & admin -> IAM
+ * Edit the service account role
+ * Look under Custom -> and choose the appropriate custom role
+
+If you discover that a new role is necessary, or that an existing role needs
+additional permissions, be certain to document your changes and inform the
+team. Search the team drive for: "Conventions for M-Lab Release Automation".
