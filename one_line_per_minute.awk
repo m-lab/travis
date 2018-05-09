@@ -13,7 +13,7 @@ BEGIN { next_output_time = 0 }
 {
   current_time = systime()
   if (current_time > next_output_time) {
-    print $0
+    print "[" strftime() "]", $0
     next_output_time = current_time + 60
   }
 }
