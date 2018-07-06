@@ -33,3 +33,22 @@ function copy_nocache() {
     local cache_control="Cache-Control:private, max-age=0, no-transform"
     gsutil -h "$cache_control" cp -r $copyfiles
 }
+
+
+# gce_run_command() runs an arbitrary command on a GCE VM over SSH.
+#
+# Args:
+#   project: name of the project in which the GCE VM resides.
+#   zone: zone in which the GCE VM resides.
+#   name: name of the GCE VM.
+#   command: the command to run.
+gce_run_command() {
+  local project="$1"
+  local zone="$2"
+  local name="$3"
+  local command="$4"
+
+  gcloud config set project $project
+  gcloud config set compute/zone $zone
+  gcloud compute ssh $name --command "$command"
+}
