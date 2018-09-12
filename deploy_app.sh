@@ -11,6 +11,8 @@ BASEDIR=${3:?Please provide the base directory containing app.yaml}
 APPYAML=${4:-app.yaml}
 TRAVIS_COMMIT=${TRAVIS_COMMIT:-unknown}
 TRAVIS_TAG=${TRAVIS_TAG:-empty_tag}
+# TODO - should make the default empty, after updating all dependencies.
+SUBST_TAGS=${SUBST_TAGS:-'$TRAVIS_TAG, $TRAVIS_COMMIT, $INJECTED_BUCKET, $INJECTED_PROJECT, $INJECTED_DATASET'}
 
 # Add gcloud to PATH.
 source "${HOME}/google-cloud-sdk/path.bash.inc"
@@ -30,7 +32,7 @@ pushd "${BASEDIR}"
   # Substitute useful travis env variables into appengine env variables.
   # Each deployment may use only a subset of these, which is fine.
   yaml=`cat $APPYAML`
-  echo "$yaml" | envsubst '$TRAVIS_TAG, $TRAVIS_COMMIT, $INJECTED_BUCKET, $INJECTED_PROJECT, $INJECTED_DATASET' > $APPYAML
+  echo "$yaml" | envsubst "'${SUBST_TAGS}'" > $APPYAML
 
   # Automatically promote the new version to "serving".
   # For all options see:
