@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# schedule_appengine_job.sh uses the Cloud Schedule API to create AppEngine
+# schedule_appengine_job.sh uses the Cloud Scheduler API to create AppEngine
 # cron jobs.
 #
 # NOTE: this script DELETEs then CREATEs the job. So, existing jobs will be
-# momentarily removed.
+# momentarily removed. Updates are not yet supported in gcloud.
 
 set -ex
 PROJECT=${1:?Please provide project}
