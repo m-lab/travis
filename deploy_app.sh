@@ -25,7 +25,7 @@ activate_service_account "${KEYNAME}"
 # https://cloud.google.com/sdk/gcloud/reference/config/set
 gcloud config set core/project "${PROJECT}"
 gcloud config set core/disable_prompts true
-gcloud config set core/verbosity debug
+gcloud config set core/verbosity info
 
 # Make build artifacts available to docker build.
 pushd "${BASEDIR}"
