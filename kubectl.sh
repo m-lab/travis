@@ -51,7 +51,6 @@ else
 fi
 
 # Make the project and cluster available to sub-commands.
-export LOCATION
 export PROJECT
 export CLUSTER
 
