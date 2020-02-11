@@ -14,12 +14,7 @@ local keyfile=$( mktemp )
 set +x; echo "${!KEYNAME}" > ${keyfile}
 export GOOGLE_APPLICATION_CREDENTIALS=${keyfile}
 
-# Make build artifacts available to docker build.
 pushd "${BASEDIR}"
-
-  # Automatically promote the new version to "serving".
-  # For all options see:
-  # https://cloud.google.com/sdk/gcloud/reference/app/deploy
   GCLOUD_PROJECT="${PROJECT}" "${CMD}"
 popd
 
