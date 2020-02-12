@@ -10,7 +10,7 @@ KEYNAME=${2:?Please provide the service account keyname}
 BASEDIR=${3:?Please provide the path to the command to run}
 shift 3
 
-local keyfile=$( mktemp )
+keyfile=$( mktemp )
 set +x; echo "${!KEYNAME}" > ${keyfile}
 export GOOGLE_APPLICATION_CREDENTIALS=${keyfile}
 
